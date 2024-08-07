@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+         /* Content section */
+         .content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+         table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+       
+        .styled-button {
+            padding: 10px 20px;
+            background-color: cornflowerblue;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .styled-button:hover {
+            background-color: rgba(100, 148, 237, 0.493);
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two equal columns */
+            gap: 20px; /* Adjust spacing between columns */
+            background-color: rgba(100, 148, 237, 0.045);
+        }
+
+        .left-side, .right-side {
+            padding: 20px; /* Adjust padding inside each column */
+            border: 1px solid #ccc; /* Optional: Add borders */
+        }
+        .lower-part {
+            content: "";
+            clear: both; /* Clear floats */
+            margin-top: 10px;
+            padding-bottom: 60px;
+        }
+        /* for the top bar */
+        .top-bar {
+            
+            justify-content: space-between; /*Align items with space between them */
+            align-items: center; /* Center items vertically */
+    
+            background-color: cornflowerblue;
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+           
+        }
+
+        .title {
+            font-size: 20px; /* Example font size */
+            text-align: center;
+        }
+
+        .home-button {
+            margin-left: 10px; /* Example margin for spacing */
+            text-align: left;
+            color: white;
+        }
+
+        .home-button a {
+            color: white; /* Example link color */
+            text-decoration: none; /* Remove underline */
+            text-align: left;
+        }
+
+
+        #quote {
+            border: 1px solid #ccc;
+            background-color: rgba(100, 148, 237, 0.229);
+            padding: 5px;
+            text-align: center;
+        }
+        table {
+            border-collapse: collapse; /* Ensure borders collapse into a single border */
+        }
+        tr, td {
+            border-color: white;
+            border: none; /* Remove borders from all table rows */
+        }
+        .popup-search {
+            position: fixed;
+            background-color: white;
+            width: 50%;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(75, 170, 237, 0.2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1100; /* Ensure it's above overlay */
+        }
+        .list {
+            text-align: center;
+            background-color: cornflowerblue;
+            color: white;
+            padding: 15px
+        }
+
+        @keyframes bubble {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .containerButtons {
+            display: flex; 
+        }
+
+        .blockList {
+            justify-content: center;
+            margin: 15px;
+        }
+        a {
+            color: black; 
+            text-decoration: none;
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+
+        /* Keyframes for flashing effect */
+        @keyframes flash {
+            0% {
+                color: cornflowerblue; /* Initial color */
+            }
+            50% {
+                color: darkgray; /* Flash color */
+            }
+            100% {
+                color: cornflowerblue; /* Return to initial color */
+            }
+        }
+
+        /* Apply flashing effect on hover */
+        a:hover {
+            animation: flash 1s infinite;
+        }
+
+        a:visited {
+            color: black; 
+        }
+
+        a:active {
+            color: black; 
+        }
+        .home-button a:hover {
+            animation: flash 1s infinite;
+        }
+        .home-button a:visited {
+            color: white; 
+        }
+
+        .home-button a:active {
+            color: white; 
+        }
+
+        .close {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .close:hover {
+            transform: scale(1.5); /* Enlarge by 10% */
+        }
+     
+        .submit_btn:hover {
+            animation: flash 1s infinite;
+        }
+        .submit_btn {
+            float: right;
+            margin: 2.5px;
+            
+        }
+        .delete_btn {
+            align-self: flex-end;
+            background-color: lightgray;
+            padding: 3.5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            float: right;
+        }
+
+        .delete_btn:hover {
+            background-color: cornflowerblue;
+        }
+        .collapsible {
+            border: 1px solid #ccc;
+            background-color: rgba(100, 148, 237, 0.229);
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            color: darkgray;
+            margin: 10px auto; 
+            box-sizing: border-box;
+        }
+        @keyframes flashBackground {
+            0% {
+                border-color: cornflowerblue; /* Initial color */
+            }
+            50% {
+                border-color: darkgray; /* Flash color */
+            }
+            100% {
+                border-color: cornflowerblue; /* Return to initial color */
+            }
+        }
+
+        .collapsible:hover {
+            animation: flash 1s infinite;
+        }
+
+        .collapsible-content {
+            padding: 0 10px;
+            display: none; /* Hidden by default */
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        } 
+
+        .edit-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        #add-quote {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+        }
+
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin: 10px auto; 
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: lightblue;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: lightskyblue;
+        }
+
+        footer {
+            background-color: cornflowerblue;
+            color: #fff;
+            text-align: center;
+            padding: 0px 20px;
+            overflow: visible;
+            bottom: 0;
+            text-align: center;
+            position: fixed;
+            height: 60px;
+            margin:0;
+            width: 100%;
+            box-sizing: border-box;
+            left: 0;
+            
+        }
+
+        #quotes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .quote-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            flex: 1 1 calc(50% - 20px); /* Adjust width for two columns */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 200px; /* Adjust height as needed */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 10px;
+            overflow: auto; 
+        } 
+
+        .quote-content {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            word-wrap: break-word; /* Breaks long words */
+            word-break: break-word; /* Ensures words break to fit */
+            overflow-wrap: break-word;
+        
+        }
+
+        .quote-author {
+            font-style: italic;
+            color: #555;
+            
+        }
+
+        #quotes-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: grid;
+            grid-template-columns: 1fr; 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            background-color: #f9f9f9;
+        }
+        .hidden {
+            display: none;
+        }
+
+
+    </style>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiat: Quote Collection</title>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="home-button"><a href="/index">FIAT</a></div>
+        <div class="title"><h1>Quotes</h1></div>
+    </div>
+  
+    <main>
+
+        <div class="collapsible">
+            <strong>Click to Search for or Add a Quote</strong>
+        </div>
+        <div class="collapsible-content" style="display: none;">
+            <div class="container">
+                <div class="right-side">
+                    <h2>Search quotes</h2>
+                    <form id="searchForm" action="/quotes/search" method="GET" class="styled-input">
+                        <div>
+                            <label for="quote_author_search">Author:</label><br>
+                            <input type="text" id="quote_author_search" name="quote_author" placeholder="Use abbreviations for titles: St., Bl., etc.">
+                        </div>
+                        <div>
+                            <label for="quote_tag_search">Topic or Season:</label><br>
+                            <input type="text" id="quote_tag_search" name="quote_tag">
+                        </div>
+                        <button type="submit" id="searchBtn" class="styled-button">Search</button>
+                    </form>
+                    <p></p>
+                </div>
+                <div class="left-side">
+                    <h2>Add New Quote</h2>
+                    <form action="/quotes" method="POST" class="styled-input">
+                        <label for="quote_content">Content:</label><br>
+                        <textarea id="quote_content" name="quote_content" required></textarea><br>
+                        <label for="quote_author">Author:</label><br>
+                        <input type="text" id="quote_author" name="quote_author" required><br>
+                        <label for="quote_tag">(optional) Topic or Season:</label>
+                        <select id="quote_tag" name="quote_tag">
+                            <option value="Catholic">Catholic</option>
+                            <option value="Family">Family</option>
+                            <option value="Friendship">Friendship</option>
+                            <option value="Vocations">Vocations</option>
+                            <option value="Loss/Suffering">Loss/Suffering</option>
+                            <option value="Crosses">Crosses</option>
+                            <option value="Holiness">Holiness</option>
+                            <option value="Love/Charity">Love/Charity</option>
+                            <option value="Faith">Faith</option>
+                            <option value="Hope">Hope</option>
+                            <option value="Marian">Marian</option>
+                            <option value="Prayer">Prayer</option>
+                            <option value="Adoration">Adoration</option>
+                            <option value="Rosary">Rosary</option>
+                            <option value="Scripture">Scripture</option>
+                            <option value="HH">Holy Hour</option>
+                            <option value="Indulgence">Indulgence</option>
+                            <option value="Pentecost">Pentecost</option>
+                            <option value="Advent">Advent</option>
+                            <option value="Christmas">Christmas</option>
+                            <option value="Lent">Lent</option>
+                            <option value="Easter">Easter</option>
+                            <option value="CatholicLit">Catholic Literature</option>
+                        </select>
+
+                        <br><br>
+                        <button type="submit" class="styled-button">Add Quote</button>
+                    </form>
+                </div>
+            </div>
+            <div id="toggleDiv" class="hidden">
+                <p></p>
+                <div id="quotes-container">
+                    <!-- Search results will be displayed here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="lower-part">
+            <h2 class="list">List of quotes</h2>
+            <div class="containerButtons blockList">
+                <section id="quotes">
+                <% if (quotes && quotes.length) { %>
+                    <% quotes.forEach(quote => { %>
+                        <div class="quote-card">
+                            <p class="quote-content">"<%= quote.quote_content %>"</p>
+                            <p class="quote-author"><em>- <%= quote.quote_author %></em></p>
+                            
+                        
+                            <form id="deleteForm_<%= quote.quote_id %>" action="/quotes/delete" method="POST" onsubmit="return confirmDelete('<%= quote.quote_id %>');">
+                                <input type="hidden" name="quote_id" value="<%= quote.quote_id %>">
+                                <button class="delete_btn" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    
+                           
+                        
+                        
+                    <% }); %>
+                </section>
+                <% } else { %>
+                    <p>No quotes available.</p>
+                <% } %>
+           
+        
+        </div>
+        
+    </main>
+    
+           
+
+
+    <footer >
+        <p><a href="https://www.vaticannews.va/en/saints.html" style="color:white;">Today's Feast: Click me!</a></p>
+    </footer>
+
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // Toggle collapsible content visibility
+    document.querySelector('.collapsible').addEventListener('click', function() {
+        var content = document.querySelector('.collapsible-content');
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Event listener for form submission
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        fetchQuotes(); // fetch and render data
+    });
+
+    // Function to fetch quotes
+    function fetchQuotes() {
+        const form = document.getElementById('searchForm');
+        const url = '/quotes/search?' + new URLSearchParams(new FormData(form)).toString();
+        console.log('Fetching URL:', url);
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Fetched data:', data);
+                renderQuotes(data); // Call function to render quotes
+                form.reset(); // Optionally reset the form
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    // Function to render quotes in HTML
+    function renderQuotes(quotes) {
+        const container = document.getElementById('quotes-container');
+        container.innerHTML = ''; // Clear previous content
+
+        quotes.forEach(quote => {
+            const quoteElement = document.createElement('div');
+            quoteElement.classList.add('quote-card');
+            
+            quoteElement.innerHTML = `
+                <div class="quote-content">"${quote.quote_content}"</div>
+                <div class="quote-author">- ${quote.quote_author}</div>
+            `;
+            
+            container.appendChild(quoteElement);
+        });
+    }
+
+    // Toggle visibility of quotes-container
+    document.getElementById('searchBtn').addEventListener('click', function() {
+        const toggleDiv = document.getElementById('toggleDiv');
+        if (toggleDiv.style.display === 'none' || toggleDiv.style.display === '') {
+            toggleDiv.style.display = 'block'; // Show the div
+            this.textContent = 'Hide Content'; // Change button text
+        } else {
+            toggleDiv.style.display = 'none'; // Hide the div
+            this.textContent = 'Search'; // Change button text
+        }
+    });
+});
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</body>
+</html>

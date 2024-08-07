@@ -1,0 +1,47 @@
+a {
+color: inherit;
+text-decoration: none; 
+}
+
+a:hover {
+    text-decoration: none;
+    color: cornflowerblue;
+}
+.btn-primary {
+background-color: cornflowerblue; /* Change background color */
+border-color: cornflowerblue; /* Change border color */
+color: #fff; /* Text color */
+font-weight: bold; /* Optionally make text bold */
+text-transform: uppercase; /* Optionally make text uppercase */
+padding: 0.5rem 1rem; /* Adjust padding as needed */
+border-radius: 0.25rem; /* Add border radius for rounded corners */
+transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.btn-primary:hover {
+    background-color: rgba(240, 128, 128, 0.399); /* Darker background color on hover */
+    border-color: rgba(240, 128, 128, 0.399); /* Darker border color on hover */
+    color: #fff; /* Text color on hover */
+    text-decoration: none; /* Remove underline on hover */
+}
+.btn-primary:active {
+background-color: rgba(240, 128, 128, 0.399); /* Darker background color on hover */
+border-color: rgba(240, 128, 128, 0.399); /* Darker border color on hover */
+color: #fff; /* Text color on hover */
+text-decoration: none; /* Remove underline on hover */
+}
+.btn-primary:focus {
+background-color: rgba(240, 128, 128, 0.399); /* Darker background color on hover */
+border-color: rgba(240, 128, 128, 0.399); /* Darker border color on hover */
+color: #fff; /* Text color on hover */
+text-decoration: none; /* Remove underline on hover */
+}
+.bg-custom-navbar-bg {
+background-color: cornflowerblue; 
+}
+#topbar{
+color: white;
+}
+.bg-custom-navbar-bottom-bg {
+background-color: cornflowerblue; 
+}

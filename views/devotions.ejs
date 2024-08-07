@@ -1,0 +1,680 @@
+<!-- views/devotions/devotions.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+    <script src="/js/devotion_search_script.js"></script>
+    <script src="/js/devotion_edit_script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get references to the button and edit form
+            const editButton = document.getElementById('editButton');
+            const editForm = document.getElementById('editForm');
+
+            // Add click event listener to the edit button
+            editButton.addEventListener('click', function() {
+                // Toggle the display of the edit form
+                if (editForm.style.display === 'none') {
+                    editForm.style.display = 'block';
+                } else {
+                    editForm.style.display = 'none';
+                }
+            });
+        });
+
+        // pop up code
+        
+
+        // Get references to elements
+        
+        const editButton = document.getElementById('editButton');
+        const editFormOverlay = document.getElementById('editFormOverlay');
+
+        // Function to open the edit form pop-up
+        editButton.addEventListener('click', function() {
+            editFormOverlay.style.display = 'block';
+        });
+
+        // Function to close the edit form pop-up
+        function closeEditForm() {
+            editFormOverlay.style.display = 'none';
+        }
+
+        //for details
+              
+        const detailButton = document.getElementById('detailButton');
+        const detailFormOverlay = document.getElementById('detailFormOverlay');
+
+        // Function to open the edit form pop-up
+        detailButton.addEventListener('click', function() {
+            detailFormOverlay.style.display = 'block';
+        });
+
+        // Function to close the edit form pop-up
+        function closeEditForm() {
+            detailFormOverlay.style.display = 'none';
+        }
+
+
+        function openEditForm(devotionId) {
+            var overlay = document.getElementById('editFormOverlay_' + devotionId);
+            overlay.style.display = 'block';
+        }
+
+        function closeEditForm(devotionId) {
+            var overlay = document.getElementById('editFormOverlay_' + devotionId);
+            overlay.style.display = 'none';
+        }
+        // for more details
+        function openDetailForm(devotionName) {
+            document.getElementById(`detailFormOverlay_${devotionName}`).style.display = 'block';
+        }
+
+        function closeDetailForm(devotionName) {
+            document.getElementById(`detailFormOverlay_${devotionName}`).style.display = 'none';
+        }
+
+        
+        // drop down
+        
+        function updateTextbox(devotionName) {
+            const textbox = document.getElementById(`devotion_type_textbox_${devotionName}`);
+            const devotionType = String(textbox.value); // Ensure it is a string
+            console.log(devotionType); // Check the type
+        }
+
+
+
+
+
+    </script>
+    
+    <style>
+
+        /* Content section */
+        .content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+         table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+       
+        .styled-button {
+            padding: 10px 20px;
+            background-color: cornflowerblue;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .styled-button:hover {
+            background-color: rgba(100, 148, 237, 0.493);
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two equal columns */
+            gap: 20px; /* Adjust spacing between columns */
+            background-color: rgba(100, 148, 237, 0.045);
+        }
+
+        .left-side, .right-side {
+            padding: 20px; /* Adjust padding inside each column */
+            border: 1px solid #ccc; /* Optional: Add borders */
+        }
+        .lower-part {
+            content: "";
+            clear: both; /* Clear floats */
+            margin-top: 10px;
+        }
+        .enlarged-input {
+            width: 400px;
+            height: 50px;
+            padding: 10px; 
+            font-size: 16px; 
+            text-align: left;
+            overflow: auto;
+            white-space: normal;
+        }
+        /* for the top bar */
+        .top-bar {
+            
+            justify-content: space-between; /*Align items with space between them */
+            align-items: center; /* Center items vertically */
+    
+            background-color: cornflowerblue;
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 20px; /* Example font size */
+            text-align: center;
+        }
+
+        .home-button {
+            margin-left: 10px; /* Example margin for spacing */
+            text-align: left;
+            color: white;
+        }
+
+        .home-button a {
+            color: white; /* Example link color */
+            text-decoration: none; /* Remove underline */
+            text-align: left;
+        }
+        /* JSON STYLES  for search results*/
+        .devotion {
+            border: 3px solid rgba(100, 148, 237, 0.229);;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 25px;
+            text-align: center;
+        }
+        .devotion h3 {
+            margin-top: 0;
+        }
+        .devotion p {
+            margin-bottom: 0;
+        }
+
+        /* pop up */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(54, 123, 148, 0.5); /* Semi-transparent black overlay */
+            z-index: 1000; /* Ensure it's above other content */
+        }
+
+    
+
+        .popup {
+            position: fixed;
+            background-color: white;
+            width: 50%;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(75, 170, 237, 0.2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1100; /* Ensure it's above overlay */
+            border-radius: 25px;
+        }
+        .popup-edit {
+            position: fixed;
+            background-color: white;
+            width: 100%;
+            max-width: 100%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(75, 170, 237, 0.2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1100; /* Ensure it's above overlay */
+            border-radius: 25px;
+            padding-left: 10px;
+            resize: vertical; 
+        }
+      
+
+       
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        #quote {
+            border: 1px solid #ccc;
+            background-color: rgba(100, 148, 237, 0.229);
+            padding: 5px;
+            text-align: center;
+
+            
+        }
+        table {
+            border-collapse: collapse; /* Ensure borders collapse into a single border */
+        }
+        tr, td {
+            border-color: white;
+            border: none; /* Remove borders from all table rows */
+        }
+        .popup-search {
+            position: fixed;
+            background-color: white;
+            width: 50%;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(75, 170, 237, 0.2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1100; /* Ensure it's above overlay */
+        }
+        .list {
+            text-align: center;
+            background-color: cornflowerblue;
+            color: white;
+            padding: 15px
+        }
+        .details label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .details input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+        }
+
+        .detailButton {
+            color: cornflowerblue;
+            background-color: rgba(100, 148, 237, 0.229);;
+            padding: 20px; /* Adjust padding inside each column */
+            border: 1px solid cornflowerblue; /* Optional: Add borders */
+            font-family: Copperplate;
+            font-size: 25px;
+            margin: 15px;
+            border-radius: 10px;
+            width: 305px;
+        }
+        .detailButton:hover {
+            animation: bubble 0.4s ease-out;
+        }
+        @keyframes bubble {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .containerButtons {
+            display: flex; 
+        }
+
+        .blockList {
+            justify-content: center;
+            margin: 15px;
+        }
+        .editButton {
+            position: absolute;
+            right: 0; /* Aligns button to the left */
+            bottom: 20px;
+            right: 20px;
+            background-color: cornflowerblue;
+            border-radius: 4px;
+            color: #fff; /* Text color */
+            border: none; /* Remove default border */
+            font-size: 15px;
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+        .editButton:hover {
+            background-color: rgba(100, 148, 237, 0.493);
+            transform: scale(1.1); /* Enlarge by 10% */
+        }
+        a {
+            color: black; 
+            text-decoration: none;
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+
+        /* Keyframes for flashing effect */
+        @keyframes flash {
+            0% {
+                color: cornflowerblue; /* Initial color */
+            }
+            50% {
+                color: darkgray; /* Flash color */
+            }
+            100% {
+                color: cornflowerblue; /* Return to initial color */
+            }
+        }
+
+        /* Apply flashing effect on hover */
+        a:hover {
+            animation: flash 1s infinite;
+        }
+
+        a:visited {
+            color: black; 
+        }
+
+        a:active {
+            color: black; 
+        }
+        .home-button a:hover {
+            animation: flash 1s infinite;
+        }
+        .home-button a:visited {
+            color: white; 
+        }
+
+        .home-button a:active {
+            color: white; 
+        }
+
+        .close {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .close:hover {
+            transform: scale(1.5); /* Enlarge by 10% */
+        }
+     
+        .submit_btn:hover {
+            animation: flash 1s infinite;
+        }
+        .submit_btn {
+            float: right;
+            margin: 2.5px;
+            
+        }
+        .collapsible {
+            border: 1px solid #ccc;
+            background-color: rgba(100, 148, 237, 0.229);
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            color: darkgray;
+            margin: 10px auto; 
+            box-sizing: border-box;
+        }
+        @keyframes flashBackground {
+            0% {
+                border-color: cornflowerblue; /* Initial color */
+            }
+            50% {
+                border-color: darkgray; /* Flash color */
+            }
+            100% {
+                border-color: cornflowerblue; /* Return to initial color */
+            }
+        }
+
+        .collapsible:hover {
+            animation: flash 1s infinite;
+        }
+
+        .collapsible-content {
+            padding: 0 10px;
+            display: none; /* Hidden by default */
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+
+ 
+
+    </style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiat: Devotions</title>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="home-button"><a href="/index">FIAT</a></div>
+        <div class="title"><h1>Devotions</h1></div>
+    </div>
+    
+    <p></p>
+    <div id="quote">
+        <h4>"These expressions of piety extend the liturgical life of the Church, but do not replace it. They 'should be so drawn up that they harmonize with the liturgical seasons, accord with the sacred liturgy, are in some way derived from it and lead the people to it, since in fact the liturgy by its very nature is far superior to any of them'" (CCC 1675). </h4>
+    </div>
+    <p></p>
+    <div class="collapsible">
+        <strong>Click to Search for or Add a Devotion</strong>
+    </div>
+        <div class="collapsible-content">
+            <p></p>
+            <div class="container">
+                <div class="right-side">
+                    <h2>Search Devotions</h2>
+                    
+                    <form id="searchForm" action="/devotions/search" method="GET" class="styled-input">
+                        <div>
+                            <label for="devotion_name">Devotion Name:</label><br>
+                            <input type="text" id="devotion_name" name="devotion_name" placeholder="Name of Devotion">
+                            <p></p>
+                        </div>
+                        <div>
+                            <label for="devotion_type">Devotion Type:</label><br>
+                            <input type="text" id="devotion_type" name="devotion_type" placeholder="Marian, Adoration, Novena, etc.">
+                        </div>
+                        <p></p>
+                        <button type="submit" class="styled-button">Search</button>
+                    </form>
+                    <p></p>
+                    <div id="devotions-container">
+                        <!-- Search results will be displayed here -->
+                    </div>
+                    
+                </div>
+                <div class="left-side">
+                    <h2>Add New Devotion</h2>
+                    <form action="/devotions" method="POST" class="styled-input">
+                        <label for="devotion_name">Name:</label><br>
+                        
+                        <input type="text" id="devotion_name" name="devotion_name" required><br><br>
+                        
+                        <label for="devotion_description">Description:</label><br>
+                        <textarea style="width:250px;height:150px; resize: none; 
+                        overflow: auto;" id="devotion_description" name="devotion_description" required></textarea><br><br>
+                    
+                            <!--<input class="enlarged-input" type="text" id="devotion_description" name="devotion_description" required><br><br>
+                        </textarea>-->
+        
+                        <label for="devotion_type">Select Devotion Type:</label>
+                        <select id="devotion_type" name="devotion_type" onchange="updateTextboxAddDevotion()">
+                            <option value="Marian">Marian</option>
+                            <option value="Adoration">Adoration</option>
+                            <option value="Novena">Novena</option>
+                            <option value="Chaplet">Chaplet</option>
+                            <option value="HH">Holy Hour</option>
+                            <option value="Indulgence">Indulgence</option>
+                            <option value="Litany">Litany</option>
+                            <option value="Advent">Advent</option>
+                            <option value="Christmas">Christmas</option>
+                            <option value="Lent">Lent</option>
+                            <option value="Easter">Easter</option>
+                        </select>
+
+                        <br><br>
+
+
+                        
+                        <button type="submit" class="styled-button">Add Devotion</button>
+                    </form>
+                </div>
+            </div>
+        </div> <!--collapse content div-->
+        <script>
+            document.querySelector('.collapsible').addEventListener('click', function() {
+                var content = document.querySelector('.collapsible-content');
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                } else {
+                    content.style.display = 'block';
+                }
+            });
+        </script>
+
+    <p></p>
+    <div class="lower-part">
+    <h2 class="list">List of Devotions</h2>
+    <div class="containerButtons blockList">
+            <% if (devotions && devotions.length) { %>
+                <% devotions.forEach(devotion => { %>
+                    
+                    <button class="detailButton" onclick="openDetailForm('<%= devotion.devotion_name %>')">
+                        <%= devotion.devotion_name %>
+                    </button>
+                    <div id="detailFormOverlay_<%= devotion.devotion_name %>" class="overlay">
+                        <div class="popup">
+                            <span class="close" onclick="closeDetailForm('<%= devotion.devotion_name %>')">&times;</span>
+                            <div id="detailForm_<%= devotion.devotion_name %>" class="details">
+                                <p><strong>Name:</strong> <span id="devotion_name_<%= devotion.devotion_name %>"><%= devotion.devotion_name %></span></p>
+                                <p><strong>Type:</strong> <span id="devotion_type_<%= devotion.devotion_name %>"><%= devotion.devotion_type %></span></p>
+                                <div id="display_text" style="white-space: pre-wrap;">
+                                    <p><strong>Description:</strong> <span id="devotion_description_<%= devotion.devotion_name %>"><%= devotion.devotion_description %></span></p>
+                                </div>
+                    
+                                <a href="/devotions/<%= devotion.devotion_name %>/comments" style="font-size:2vw; font-style: italic;"><strong>Click to View Details</strong></a>
+                                <button class="editButton" onclick="openEditForm('<%= devotion.devotion_name %>')"><strong>Edit Form</strong></button>
+                    
+                                <div id="editFormOverlay_<%= devotion.devotion_name %>" class="overlay">
+                                    <div class="popup-edit">
+                                        <span class="close" onclick="closeEditForm('<%= devotion.devotion_name %>')">&times;</span>
+                                        <form id="editForm_<%= devotion.devotion_name %>" action="/devotions/update" method="POST">
+                                            <input type="hidden" name="devotion_name" value="<%= devotion.devotion_name %>">
+                    
+                                            <p><strong>Name:</strong> <span><%= devotion.devotion_name %></span></p>
+                                            
+                                            <label for="devotion_description_<%= devotion.devotion_name %>">Description:</label>
+                                            <textarea 
+                                                style="
+                                                    width: 100%;
+                                                    height: 100px; 
+                                                    max-width: 100%;
+                                                    box-sizing: border-box; 
+                                                    padding: 10px;
+                                                    border-radius: 4px;
+                                                    border: 1px solid #ccc;
+                                                    resize: none; 
+                                                    overflow: auto;"
+                                                id="devotion_description_<%= devotion.devotion_name %>" 
+                                                name="devotion_description" 
+                                                required
+                                            ><%= devotion.devotion_description || '' %></textarea>
+                                            
+                                            <p></p>
+                                            <label for="devotion_type_select_<%= devotion.devotion_name %>">Type:</label>
+                                            <select id="devotion_type_select_<%= devotion.devotion_name %>" name="devotion_type" required>
+                                                <option value="Marian" <%= devotion.devotion_type === 'Marian' ? 'selected' : '' %>>Marian</option>
+                                                <option value="Adoration" <%= devotion.devotion_type === 'Adoration' ? 'selected' : '' %>>Adoration</option>
+                                                <option value="Novena" <%= devotion.devotion_type === 'Novena' ? 'selected' : '' %>>Novena</option>
+                                                <option value="Chaplet" <%= devotion.devotion_type === 'Chaplet' ? 'selected' : '' %>>Chaplet</option>
+                                                <option value="HH" <%= devotion.devotion_type === 'HH' ? 'selected' : '' %>>Holy Hour</option>
+                                                <option value="Indulgence" <%= devotion.devotion_type === 'Indulgence' ? 'selected' : '' %>>Indulgence</option>
+                                                <option value="Litany" <%= devotion.devotion_type === 'Litany' ? 'selected' : '' %>>Litany</option>
+                                                <option value="Advent" <%= devotion.devotion_type === 'Advent' ? 'selected' : '' %>>Advent</option>
+                                                <option value="Christmas" <%= devotion.devotion_type === 'Christmas' ? 'selected' : '' %>>Christmas</option>
+                                                <option value="Lent" <%= devotion.devotion_type === 'Lent' ? 'selected' : '' %>>Lent</option>
+                                                <option value="Easter" <%= devotion.devotion_type === 'Easter' ? 'selected' : '' %>>Easter</option>
+                                            </select>
+                                            
+                                            <p></p>
+                                            <button class="submit_btn" type="submit">Update</button>
+                                        </form>
+                                        
+                                        <form id="deleteForm_<%= devotion.devotion_name %>" action="/devotions/delete" method="POST" onsubmit="return confirmDelete('<%= devotion.devotion_name %>');">
+                                            <input type="hidden" name="devotion_name" value="<%= devotion.devotion_name %>">
+                                            <button class="submit_btn" type="submit">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                            
+                            
+
+                    
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="3">No devotions found.</td>
+                </tr>
+            <% } %>
+       
+    
+</div>
+</div> <!--container and buttons-->
+<script>
+    function confirmDelete(devotionName) {
+        // Display confirmation dialog
+        return confirm(`Are you sure you want to delete the devotion "${devotionName}"? This action cannot be undone.`);
+    }
+    function updateTextboxAddDevotion() {
+        var type = document.getElementById("devotion_type").value;
+        console.log(type); // For debugging
+    }
+    function displayText() {
+        var text = document.getElementById("devotion_description").value;
+        document.getElementById("display_text").innerText = text; // Preserves newlines
+    }
+
+    // Function to fetch devotions based on search parameters
+    // DO NOT MOVE THIS SCRIPT TAG! IT MUST BE HERE!!!! (because of how the DOM interacts with it )
+    function fetchDevotions() {
+        const url = '/devotions/search?' + new URLSearchParams(new FormData(document.getElementById('searchForm'))).toString();
+        console.log('Fetching URL:', url);
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Fetched data:', data);
+                renderDevotions(data); // Call function to render devotions
+                form.reset();
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    // Function to render devotions in HTML
+    function renderDevotions(devotions) {
+        const container = document.getElementById('devotions-container');
+        container.innerHTML = ''; // Clear previous content
+
+        devotions.forEach(devotion => {
+            const devotionElement = document.createElement('div');
+            devotionElement.classList.add('devotion');
+            
+            devotionElement.innerHTML = `
+                <h3>${devotion.devotion_name}</h3>
+                <p>Type: ${devotion.devotion_type}</p>
+                <p>${devotion.devotion_description}</p>
+            `;
+            
+            container.appendChild(devotionElement);
+        });
+    }
+
+    // Event listener for form submission
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        fetchDevotions(); // Call fetchDevotions() to fetch and render data
+    });
+    
+        
+</script>
+
+</body>
+</html>
+

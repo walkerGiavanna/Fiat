@@ -1,0 +1,210 @@
+/*
+const db = require('./index');
+
+// Create tables
+const createTables = () => {
+    
+  const createStudentsTable = `
+    CREATE TABLE IF NOT EXISTS students (
+      student_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT,
+      age INTEGER
+    );
+  `;
+
+  const createCoursesTable = `
+    CREATE TABLE IF NOT EXISTS courses (
+      course_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      course_name TEXT,
+      instructor TEXT
+    );
+  `;
+  const createCoursesCommentsTable = `
+    CREATE TABLE IF NOT EXISTS course_comments (
+      comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      course_id TEXT,
+      FOREIGN KEY (course_id) REFERENCES courses(course_id)
+    );
+  `;
+
+  const createQuotesTable = `
+    CREATE TABLE IF NOT EXISTS quotes (
+      quote_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      quote_body TEXT
+    );
+  `;
+  const createQuotesCommentsTable = `
+    CREATE TABLE IF NOT EXISTS quote_comments (
+      comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      quote_id TEXT,
+      FOREIGN KEY (quote_id) REFERENCES quotes(quote_id)
+    );
+  `;
+
+  const createSaintsTable = `
+    CREATE TABLE IF NOT EXISTS saints (
+      saint_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      saint_name TEXT,
+      saint_bio TEXT
+    );
+  `;
+  const createSaintsCommentsTable = `
+    CREATE TABLE IF NOT EXISTS saint_comments (
+      comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      saint_id TEXT,
+      FOREIGN KEY (saint_id) REFERENCES saints(saint_id)
+    );
+  `;
+
+  const createBooksTable = `
+    CREATE TABLE IF NOT EXISTS books (
+      book_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      book_name TEXT,
+      book_genre TEXT,
+      book_author TEXT,
+      book_comments TEXT
+    );
+  `;
+  const createBooksCommentsTable = `
+    CREATE TABLE IF NOT EXISTS book_comments (
+      comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      book_id TEXT,
+      FOREIGN KEY (book_id) REFERENCES books(book_id)
+    );
+  `;
+
+  const createMoviesTable = `
+    CREATE TABLE IF NOT EXISTS movies (
+      movie_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      movie_name TEXT,
+      movie_genre TEXT,
+      movie_themes TEXT,
+      movie_comments TEXT
+    );
+  `;
+  const createMoviesCommentsTable = `
+    CREATE TABLE IF NOT EXISTS movie_comments (
+      comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      movie_id TEXT,
+      FOREIGN KEY (movie_id) REFERENCES movies(movie_id)
+    );
+  `;
+
+  
+  const createDevotionTypesTable = `
+    CREATE TABLE IF NOT EXISTS typesOfDevotions (
+      type_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      type_name TEXT,
+      duration TEXT,
+      liturgical_time TEXT
+    );
+  `;
+
+  const createDevotion_TypesTable = `
+  CREATE TABLE IF NOT EXISTS devotion_types (
+    type_id INTEGER,
+    devotion_id INTEGER,
+    FOREIGN KEY(type_id) REFERENCES typesOfDevotions(type_id),
+    FOREIGN KEY(devotion_id) REFERENCES devotions(devotion_id),
+    PRIMARY KEY(type_id, devotion_id)
+  );
+`;
+
+ 
+  
+  const createDevotionsCommentsTable = `
+    CREATE TABLE IF NOT EXISTS devotion_comments (
+      comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      devotion_id TEXT,
+      FOREIGN KEY (devotion_id) REFERENCES devotions(devotion_id)
+    );
+  `;
+
+  const createResourcesTable = `
+    CREATE TABLE IF NOT EXISTS resources (
+      resource_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      resource_name TEXT,
+      resource_speciality TEXT,
+      resource_comments TEXT
+    );
+  `;
+  const createResourcesCommentsTable = `
+    CREATE TABLE IF NOT EXISTS resource_comments (
+      comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      resource_id TEXT,
+      FOREIGN KEY (resource_id) REFERENCES resources(resource_id)
+    );
+  `;
+
+  const createEventsTable = `
+    CREATE TABLE IF NOT EXISTS events (
+      event_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      event_name TEXT,
+      event_location TEXT,
+      event_comments TEXT
+    );
+  `;
+  const createEventsCommentsTable = `
+    CREATE TABLE IF NOT EXISTS events_comments (
+      comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      event_id TEXT,
+      FOREIGN KEY (event_id) REFERENCES events(event_id)
+    );
+  `;
+
+  const createEnrollmentTable = `
+    CREATE TABLE IF NOT EXISTS enrollment (
+      enrollment_id INTEGER PRIMARY KEY,
+      student_id INTEGER,
+      course_id INTEGER,
+      FOREIGN KEY (student_id) REFERENCES students(student_id),
+      FOREIGN KEY (course_id) REFERENCES courses(course_id)
+    );
+  `;
+  const createDevotionsTable = `
+  CREATE TABLE IF NOT EXISTS devotions (
+    devotion_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    devotion_name TEXT,
+    devotion_type TEXT,
+    devotion_description TEXT,
+    devotion_instruction TEXT,
+  );
+`;
+  */
+  
+
+
+
+  // Run each table creation statement
+  db.serialize(() => {
+    /*
+    db.run(createStudentsTable);
+    db.run(createCoursesTable);
+    db.run(createCoursesCommentsTable);
+    db.run(createDevotion_TypesTable);
+    db.run(createDevotionTypesTable);
+
+    db.run(createQuotesTable);
+    db.run(createQuotesCommentsTable);
+    db.run(createSaintsTable);
+    db.run(createSaintsCommentsTable);
+    db.run(createBooksTable);
+    db.run(createBooksCommentsTable);
+    db.run(createMoviesTable);
+    db.run(createMoviesCommentsTable);
+    
+    db.run(createDevotionsCommentsTable);
+    db.run(createResourcesTable);
+    db.run(createResourcesCommentsTable);
+    db.run(createEventsTable);
+    db.run(createEventsCommentsTable);
+
+    db.run(createEnrollmentTable);
+    
+    db.run(createDevotionsTable);
+    
+  });
+};
+
+module.exports = { createTables };
+*/

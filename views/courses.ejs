@@ -1,0 +1,628 @@
+<!-- views/courses.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get references to the button and edit form
+            const editButton = document.getElementById('editButton');
+            const editForm = document.getElementById('editForm');
+
+            // Add click event listener to the edit button
+            editButton.addEventListener('click', function() {
+                // Toggle the display of the edit form
+                if (editForm.style.display === 'none') {
+                    editForm.style.display = 'block';
+                } else {
+                    editForm.style.display = 'none';
+                }
+            });
+        });
+
+        // pop up code
+        
+
+        // Get references to elements
+        
+        const editButton = document.getElementById('editButton');
+        const editFormOverlay = document.getElementById('editFormOverlay');
+
+        // Function to open the edit form pop-up
+        editButton.addEventListener('click', function() {
+            editFormOverlay.style.display = 'block';
+        });
+
+        // Function to close the edit form pop-up
+        function closeEditForm() {
+            editFormOverlay.style.display = 'none';
+        }
+
+        //for details
+              
+        const detailButton = document.getElementById('detailButton');
+        const detailFormOverlay = document.getElementById('detailFormOverlay');
+
+        // Function to open the edit form pop-up
+        detailButton.addEventListener('click', function() {
+            detailFormOverlay.style.display = 'block';
+        });
+
+        // Function to close the edit form pop-up
+        function closeEditForm() {
+            detailFormOverlay.style.display = 'none';
+        }
+        
+
+        function openEditForm(courseId) {
+            var overlay = document.getElementById('editFormOverlay_' + courseId);
+            overlay.style.display = 'block';
+        }
+
+        function closeEditForm(courseId) {
+            var overlay = document.getElementById('editFormOverlay_' + courseId);
+            overlay.style.display = 'none';
+        }
+        // for more details
+        function openDetailForm(courseName) {
+            document.getElementById(`detailFormOverlay_${courseName}`).style.display = 'block';
+        }
+
+        function closeDetailForm(courseName) {
+            document.getElementById(`detailFormOverlay_${courseName}`).style.display = 'none';
+        }
+
+        
+        // drop down
+        
+        function updateTextbox(courseName) {
+            const selectElement = document.getElementById(`course_type_select_${courseName}`);
+            const hiddenTextbox = document.getElementById(`course_subject_textbox_${courseName}`);
+
+            if (selectElement && hiddenTextbox) {
+                const selectedValue = selectElement.value; // Get the selected value from the dropdown
+                hiddenTextbox.value = selectedValue; // Update the hidden textbox with the selected value
+
+                console.log(`Selected Value: ${selectedValue}`); // Debugging: Check the selected value
+            } else {
+                console.error('Elements not found:', `course_type_select_${courseName}`, `course_subject_textbox_${courseName}`);
+            }
+        }
+
+
+
+
+
+    </script>
+    
+    <style>
+
+        /* Content section */
+        .content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+         table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+       
+        .styled-button {
+            padding: 10px 20px;
+            background-color: cornflowerblue;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .styled-button:hover {
+            background-color: rgba(100, 148, 237, 0.493);
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two equal columns */
+            gap: 20px; /* Adjust spacing between columns */
+        }
+
+        .left-side, .right-side {
+            padding: 20px; /* Adjust padding inside each column */
+            border: 1px solid #ccc; /* Optional: Add borders */
+        }
+        .lower-part {
+            content: "";
+            clear: both; /* Clear floats */
+            margin-top: 10px;
+        }
+        .enlarged-input {
+            width: 400px;
+            height: 50px;
+            padding: 10px; 
+            font-size: 16px; 
+            text-align: left;
+            overflow: auto;
+            white-space: normal;
+        }
+        /* for the top bar */
+        .top-bar {
+            
+            justify-content: space-between; /*Align items with space between them */
+            align-items: center; /* Center items vertically */
+    
+            background-color: cornflowerblue;
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 20px; /* Example font size */
+            text-align: center;
+        }
+
+        .home-button {
+            margin-left: 10px; /* Example margin for spacing */
+            text-align: left;
+            color: white;
+        }
+
+        .home-button a {
+            color: white; /* Example link color */
+            text-decoration: none; /* Remove underline */
+            text-align: left;
+        }
+        /* JSON STYLES  for search results*/
+        .course {
+            border: 3px solid rgba(100, 148, 237, 0.229);;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 25px;
+            text-align: center;
+        }
+        .course h3 {
+            margin-top: 0;
+        }
+        .course p {
+            margin-bottom: 0;
+        }
+
+        /* pop up */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(54, 123, 148, 0.5); /* Semi-transparent black overlay */
+            z-index: 1000; /* Ensure it's above other content */
+        }
+
+    
+
+        .popup {
+            position: fixed;
+            background-color: white;
+            width: 50%;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(75, 170, 237, 0.2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1100; /* Ensure it's above overlay */
+            border-radius: 25px;
+        }
+        .popup-edit {
+            position: fixed;
+            background-color: white;
+            width: 100%;
+            max-width: 100%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(75, 170, 237, 0.2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1100; /* Ensure it's above overlay */
+            border-radius: 25px;
+            padding-left: 10px;
+            resize: vertical; 
+        }
+      
+
+       
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        #quote {
+            border: 1px solid #ccc;
+            background-color: rgba(100, 148, 237, 0.229);
+            padding: 5px;
+            text-align: center;
+
+            
+        }
+        table {
+            border-collapse: collapse; /* Ensure borders collapse into a single border */
+        }
+        tr, td {
+            border-color: white;
+            border: none; /* Remove borders from all table rows */
+        }
+        .popup-search {
+            position: fixed;
+            background-color: white;
+            width: 50%;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(75, 170, 237, 0.2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1100; /* Ensure it's above overlay */
+        }
+        .list {
+            text-align: center;
+            background-color: cornflowerblue;
+            color: white;
+            padding: 15px
+        }
+        .details label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .details input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+        }
+
+        .detailButton {
+            color: cornflowerblue;
+            background-color: rgba(100, 148, 237, 0.229);;
+            padding: 20px; /* Adjust padding inside each column */
+            border: 1px solid cornflowerblue; /* Optional: Add borders */
+            font-family: Copperplate;
+            font-size: 25px;
+            margin: 15px;
+            border-radius: 10px;
+            width: 305px;
+        }
+        .detailButton:hover {
+            animation: bubble 0.4s ease-out;
+        }
+        @keyframes bubble {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .containerButtons {
+            display: flex; 
+        }
+
+        .blockList {
+            justify-content: center;
+            margin: 15px;
+        }
+        .editButton {
+            position: absolute;
+            right: 0; /* Aligns button to the left */
+            bottom: 20px;
+            right: 20px;
+            background-color: cornflowerblue;
+            border-radius: 4px;
+            color: #fff; /* Text color */
+            border: none; /* Remove default border */
+            font-size: 15px;
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+        .editButton:hover {
+            background-color: rgba(100, 148, 237, 0.493);
+            transform: scale(1.1); /* Enlarge by 10% */
+        }
+        a {
+            color: black; 
+            text-decoration: none;
+            
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+
+        /* Keyframes for flashing effect */
+        @keyframes flash {
+            0% {
+                color: cornflowerblue; /* Initial color */
+            }
+            50% {
+                color: lightblue; /* Flash color */
+            }
+            100% {
+                color: cornflowerblue; /* Return to initial color */
+            }
+        }
+
+        /* Apply flashing effect on hover */
+        a:hover {
+            animation: flash 1s infinite;
+        }
+
+        a:visited {
+            color: black; 
+        }
+
+        a:active {
+            color: black; 
+        }
+        .home-button a:hover {
+            animation: flash 1s infinite;
+        }
+        .home-button a:visited {
+            color: white; 
+        }
+
+        .home-button a:active {
+            color: white; 
+        }
+
+        .close {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .close:hover {
+            transform: scale(1.5); /* Enlarge by 10% */
+        }
+        .submit_btn:hover {
+            animation: flash 1s infinite;
+        }
+        .submit_btn {
+            float: right;
+            margin: 2.5px;
+            
+        }
+
+    </style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiat: Course Recommendations</title>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="home-button"><a href="/index">FIAT</a></div>
+        <div class="title"><h1>Courses</h1></div>
+    </div>
+    <p></p>
+    <div id="quote">
+        <h4>"Have patience with all things, but chiefly have patience with yourself. Do not lose courage in considering your own imperfections but se courage in considering your own imperfections but instantly set about remedying them—every day begin the task anew." - St. Francis de Sales</h4>
+    </div>
+    <p></p>
+    <div class="container">
+        <div class="right-side">
+            <h2>Search courses</h2>
+            
+            <form id="searchForm" action="/courses/search" method="GET" class="styled-input">
+                <div>
+                    <label for="course_name">Course Name:</label><br>
+                    <input type="text" id="course_name" name="course_name" placeholder="Name of Course">
+                    <p></p>
+                </div>
+                <div>
+                    <label for="course_subject">Subject:</label><br>
+                    <input type="text" id="course_subject" name="course_subject" placeholder="Humanities, History, Theology etc.">
+                </div>
+                <p></p>
+                <button type="submit" class="styled-button" onclick="fetchcourses();">Search</button>
+            </form>
+            <p></p>
+            <div id="courses-container">
+                <!-- Search results will be displayed here -->
+            </div>
+            <script>
+                // Function to fetch courses based on search parameters
+        function fetchcourses() {
+            const url = '/courses/search?' + new URLSearchParams(new FormData(document.getElementById('searchForm'))).toString();
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    rendercourses(data); // Call function to render courses
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        // Function to render courses in HTML
+        function rendercourses(courses) {
+            const container = document.getElementById('courses-container');
+            container.innerHTML = ''; // Clear previous content
+
+            courses.forEach(course => {
+                const courseElement = document.createElement('div');
+                courseElement.classList.add('course');
+                
+                courseElement.innerHTML = `
+                    <h3>${course.course_name}</h3>
+                    <p>Subject: ${course.course_subject}</p>
+                    <p>${course.course_description}</p>
+                    <p>${course.course_professor}</p>
+                `;
+                
+                container.appendChild(courseElement);
+            });
+        }
+
+        // Event listener for form submission
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            fetchcourses(); // Call fetchcourses() to fetch and render data
+        });
+            </script>
+            
+        </div>
+        
+        <div class="left-side">
+            <h2>Add New course</h2>
+            <form action="/courses" method="POST" class="styled-input">
+                <label for="course_name">Name:</label><br>
+                
+                <input type="text" id="course_name" name="course_name" required><br><br>
+                
+                <label for="course_description">Description:</label><br>
+                <textarea style="width:250px;height:150px; resize: none; 
+                overflow: auto;" id="course_description" name="course_description"></textarea><br><br>
+
+                <label for="course_subject">Select Subject:</label>
+                <select id="course_subject" name="course_subject" onchange="updateTextbox()" required>
+                    <option value="Humanities">Humanities</option>
+                    <option value="History">History</option>
+                    <option value="Social Science">Social Science</option>
+                    <option value="Philosophy">Philosophy</option>
+                    <option value="Ethics">Ethics</option>
+                    <option value="Nursing">Nursing</option>
+                    <option value="Theology">Theology</option>
+                    <option value="Fine Arts">Fine Arts</option>
+                    <option value="Foreign Language">Foreign Language</option>
+                    <option value="English">English</option>
+                    <option value="Other">Other</option>
+                </select>
+                <br><br>
+
+                <label for="course_professor">Professor:</label><br>
+                <input type="text" id="course_professor" name="course_professor"><br><br>
+
+
+                
+                <button type="submit" class="styled-button">Add Course</button>
+            </form>
+        </div>
+    </div>
+
+    <p></p>
+    <div class="lower-part">
+    <h2 class="list">List of Courses</h2>
+    <div class="containerButtons blockList">
+            <% if (courses && courses.length) { %>
+                <% courses.forEach(course => { %>
+                    
+                            <button class="detailButton" onclick="openDetailForm('<%= course.course_name %>')"><%= course.course_name %></button>
+                            <div id="detailFormOverlay_<%= course.course_name %>" class="overlay">
+                                <div class="popup">
+                                    <span class="close" onclick="closeDetailForm('<%= course.course_name %>')">&times;</span>
+                                    <div id="detailForm_<%= course.course_name %>" class="details">
+                                        <p><strong>Name:</strong> <span id="course_name_<%= course.course_name %>"><%= course.course_name %></span></p>
+                                        <p><strong>Subject:</strong> <span id="course_subject_<%= course.course_name %>"><%= course.course_subject %></span></p>
+                                        <p><strong>Description:</strong> <span id="course_description_<%= course.course_name %>"><%= course.course_description %></span></p>
+                                        <p><strong>Professor:</strong> <span id="course_professor_<%= course.course_name %>"><%= course.course_professor %></span></p>
+
+                                        <a href="/courses/<%= course.course_name %>/comments" style="font-size:2vw; font-style: italic;"><strong>Click to View Comments</strong></a>
+
+                                        <button class="editButton" onclick="openEditForm('<%= course.course_name %>')"><strong>Edit Form</strong></button>
+                                        <div id="editFormOverlay_<%= course.course_name %>" class="overlay">
+                                            <div class="popup-edit">
+                                                <span class="close" onclick="closeEditForm('<%= course.course_name %>')">&times;</span>
+                                                <form id="editForm_<%= course.course_name %>" action="/courses/update" method="POST">
+                                                    <input type="hidden" name="course_name" value="<%= course.course_name %>">
+                                                    <label for="course_name_<%= course.course_name %>" value="<%= course.course_name %>"></label>
+                                                    <input type="text" id="course_name_<%= course.course_name %>" name="course_name" value="<%= course.course_name %>" disabled>
+                                                    <p></p>
+                                                    <label for="course_description_<%= course.course_name %>">Description:</label>
+                                                    <textarea 
+                                                        style="
+                                                            width: 100%;
+                                                            height: 100px; 
+                                                            max-width: 100%;
+                                                            box-sizing: border-box; 
+                                                            padding: 10px;
+                                                            border-radius: 4px;
+                                                            border: 1px solid #ccc;
+                                                            resize: none; 
+                                                            overflow: auto;"
+                                                        id="course_description_<%= course.course_name %>" 
+                                                        name="course_description" 
+                                                        required
+                                                    ><%= course.course_description || '' %></textarea>
+                                                    <p></p>
+                                                    <label for="course_type_select">Subject:</label>
+                                                    <select id="course_type_select_<%= course.course_name %>" onchange="updateTextbox('<%= course.course_name %>')">
+                                                        <option value="Theology" <%= course.course_subject === 'Theology' ? 'selected' : '' %>>Theology</option>
+                                                        <option value="Humanities" <%= course.course_subject === 'Humanities' ? 'selected' : '' %>>Humanities</option>
+                                                        <option value="Philosophy" <%= course.course_subject === 'Philosophy' ? 'selected' : '' %>>Philosophy</option>
+                                                        <option value="Ethics" <%= course.course_subject === 'Ethics' ? 'selected' : '' %>>Ethics</option>
+                                                        <option value="Social Science" <%= course.course_subject === 'Social Science' ? 'selected' : '' %>>Social Science</option>
+                                                        <option value="Fine Arts" <%= course.course_subject === 'Fine Arts' ? 'selected' : '' %>>Fine Arts</option>
+                                                        <option value="Nursing" <%= course.course_subject === 'Nursing' ? 'selected' : '' %>>Nursing</option>
+                                                        <option value="Foreign Language" <%= course.course_subject === 'Foreign Language' ? 'selected' : '' %>>Foreign Language</option>
+                                                        <option value="Christmas" <%= course.course_subject === 'Christmas' ? 'selected' : '' %>>Christmas</option>
+                                                        <option value="English" <%= course.course_subject === 'English' ? 'selected' : '' %>>English</option>
+                                                        <option value="History" <%= course.course_subject === 'History' ? 'selected' : '' %>>History</option>
+                                                    </select>
+
+                                                    <!-- Textbox -->
+                                                    <input type="text" id="course_subject_textbox_<%= course.course_name %>"  name="course_subject" value="<%= course.course_subject %>" hidden>
+                                
+                                                    
+                                                    <label for="course_professor_<%= course.course_name %>" value="<%= course.course_professor %>">Professor: </label>
+                                                    <input type="text" id="course_professor_<%= course.course_name %>" name="course_professor" value="<%= course.course_professor %>" >
+                                        
+                                                    
+                                                    <p></p>
+                                                    <button type="submit" class="submit_btn">Update</button>
+                                                </form>
+                                                <p></p>
+                                                <form id="editForm_<%= course.course_name %>" action="/courses/delete" method="POST" onsubmit="return confirmDelete('<%= course.course_name %>');">
+                                                    <input type="hidden" name="course_name" value="<%= course.course_name %>">
+                                                    <button class="submit_btn" type="submit">Delete</button>
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+
+                    
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="3">No courses found.</td>
+                </tr>
+            <% } %>
+       
+    
+</div>
+</div> <!--container and buttons-->
+<script>
+    function confirmDelete(courseName) {
+        // Display confirmation dialog
+        return confirm(`Are you sure you want to delete the course "${courseName}"? This action cannot be undone.`);
+    }
+</script>
+
+</body>
+</html>
+
+

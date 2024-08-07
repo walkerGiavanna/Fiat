@@ -1,0 +1,212 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Villanova Fiat</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Custom styles can be added here */
+    a {
+      color: inherit;
+      text-decoration: none; 
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: cornflowerblue;
+    }
+    .btn-primary {
+      background-color: cornflowerblue; /* Change background color */
+      color: #fff; /* Text color */
+      font-weight: bold; /* Optionally make text bold */
+      text-transform: uppercase; /* Optionally make text uppercase */
+      padding: 0.5rem 1rem; /* Adjust padding as needed */
+      border-radius: 0.25rem; /* Add border radius for rounded corners */
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+    }
+
+    .btn-primary:hover {
+        color: #fff; /* Text color on hover */
+        text-decoration: none; /* Remove underline on hover */
+        animation: flash 5s infinite; /* 3s duration, infinite loop */
+    }
+    .btn-primary:active {
+      color: #fff; /* Text color on hover */
+      text-decoration: none; /* Remove underline on hover */
+    }
+    .btn-primary:focus {
+      background-color: rgba(240, 128, 128, 0.399); /* Darker background color on hover */
+      color: #fff; /* Text color on hover */
+      text-decoration: none; /* Remove underline on hover */
+    }
+    .bg-custom-navbar-bg {
+      animation: flash 55s infinite; /* 3s duration, infinite loop */
+      /* background-color: cornflowerblue;  */
+    }
+    #topbar{
+      color: white;
+    }
+    .bg-custom-navbar-bottom-bg {
+      animation: flash 55s infinite; /* 3s duration, infinite loop */
+      /* background-color: cornflowerblue;  */
+      
+    }
+    #about img {
+      max-width: 100%; /* Ensure image scales with its container */
+      min-height: 2em; /* Maintain aspect ratio */
+    }
+    
+    .churchImage {
+      width: 274.909px;
+      height: 366.5454px;
+      float: right; /* keep or no?? */
+    }
+    @keyframes flash {
+        0% { background-color: cornflowerblue; } 
+        25% { background-color: cornflowerblue; }
+        50% { background-color: lightblue; }
+        75% { background-color: cornflowerblue; }
+        100% { background-color: cornflowerblue; } /* Back to first color */
+    }
+
+
+
+  </style>
+  <script>
+    
+  </script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-custom-navbar-bg">
+    <a class="navbar-brand" href="#" id="topbar">Villanova FIAT</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto" >
+        <li class="nav-item active">
+          <a class="nav-link" href="#home" id="topbar">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about" id="topbar">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#community" id="topbar">Community</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact" id="topbar">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="home" class="jumbotron text-center">
+    <div class="container">
+      <h1 class="display-4">Welcome to the Garden!</h1>
+      <p class="lead">Please add what you find helpful in your faith journey and learn from others!</p>
+      <a class="btn btn-primary" href="#about">Learn More</a>
+    </div>
+  </section>
+
+  <section id="about" class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h2>About Us</h2>
+          <p>Villanova Fiat: Villanova University Catholic women's group.</p> 
+          <li>FIAT Rosary: _____ </li> 
+          <li>FIAT Meetings: _____ </li> 
+          <p></p>
+          <li>Confession: ____</li>
+          <li>Adoration: ____ </li>
+          <li>Daily Mass Times on Campus (Corr Chapel): 12:05pm 5:30pm </li> 
+          <li>Sunday Mass Times on Campus: 3pm(Spanish) 5pm 7pm 9pm </li> 
+          <p></p>
+          <li> [link to spotify] </li>
+        </div>
+        <div class="col-md-6">
+          <img src="/images/villanova.jpg" alt="St. Thomas of Villanova Church" class="churchImage">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="community" class="bg-light py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Community</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body"> 
+              <a href="courses">
+                <h5 class="card-title">Recommended Courses</h5>
+                <p class="card-text">Find courses that will help you grow as a person!</p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <a href="devotions">
+                <h5 class="card-title">Devotions</h5>
+                <p class="card-text">Discover devotions your friends have found fruitful in their faith journey.</p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <a href="">
+                <h5 class="card-title">Library</h5>
+                <p class="card-text">Looking for a meaningful book? Here are some recommendations :)</p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <a href="quotes">
+                <h5 class="card-title">Quotes</h5>
+                <p class="card-text">Discover reflective and inspiring quotes from your peers!</p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <a href="">
+                <h5 class="card-title">Organizations</h5>
+                <p class="card-text">Contribute to good causes. "Faith without works is dead."</p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <a href="">
+                <h5 class="card-title">Movies/Shows</h5>
+                <p class="card-text">Wholesome movies and shows.</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-custom-navbar-bottom-bg text-white text-center py-3 " >
+    <p>Villanova Fiat 2024</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
